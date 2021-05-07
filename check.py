@@ -6,6 +6,11 @@ import os
 import sys
 from pprint import pprint
 try:
+    import subprocess
+except:
+    print("Bitte das Modul subprocess installieren mit \"pip3 install subprocess\"")
+    sys.exit(1)
+try:
     import smtplib
 except:
     print("Bitte das Modul smtplib installieren mit \"pip3 install smtplib\"")
@@ -31,7 +36,7 @@ def checkAvailability():
 
     r = requests.patch(url, json=data, headers=head)
     result = r.json()
-    pprint(result)
+    # pprint(result)
 
     available = [x for x in result if x["Available"] ]
 
@@ -40,16 +45,23 @@ def checkAvailability():
     return available
 
 
+def getInformationToSlug(slug):
+    kommando = os.path.dirname(os.path.realpath(__file__)) + "/parser " + str(slug)
+    information = subprocess.check_output(kommando, shell=True, encoding='utf-8')
+    return(information)
 
-def sendmail(available):
+
+
+def sendmail(available, information):
     gmail_user = config.username
     gmail_password = config.password
     sent_from = gmail_user
     to = gmail_user
     subject = "Impftermin"
-    body = available
+    body = str(information) + "\n\n" + str(available)
 
-    email_text = "From: " + str(sent_from) + "\nTo: " + str(to) + "\nSubject: " + str(subject) + "\n\n" +  str(body)
+    email_text = "From: " + str(sent_from) + "\nTo: " + str(to) + "\nSubject: " + str(subject) + "\n" +  str(body)
+    print(email_text)
 
     try:
         server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
@@ -66,6 +78,11 @@ def sendmail(available):
 available = checkAvailability()
 
 if available != []:
-    sendmail(available)
+    slugs = [available["Slug"] for available in available]
+    information = ""
+    for slug in slugs:
+        information += getInformationToSlug(slug) + "\n\n"
+
+    sendmail(available, information)
 else:
     print("Es sind keine Termine verfügbar")

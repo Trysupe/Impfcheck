@@ -1,0 +1,26 @@
+#!/bin/bash
+
+
+slug="$1"
+
+outputfile="$(mktemp)"
+curl "https://impfterminradar.de/api/centers/all" 2>/dev/null | jq . | grep -A 15 -B 25 "$slug" | sed -n '/Adress/,/Zentrumsname/p' > $outputfile
+
+# cat $outputfile
+# exit
+
+      Adress="$(cat $outputfile | grep "Adress"         | sed -n 1p | sed 's|[",:]||g' | sed 's/^ *//g' | sed 's/ /: /' | sed 's/ß/ss/g')"
+  BookingURL="$(cat $outputfile | grep "BookingURL"     | sed -n 1p | sed 's|[",:]||g' | sed 's/^ *//g' | sed 's/ /: /' | sed 's/https/https:/')"
+         Ort="$(cat $outputfile | grep "Ort"            | sed -n 1p | sed 's|[",:]||g' | sed 's/^ *//g' | sed 's/ /: /')"
+         PLZ="$(cat $outputfile | grep "PLZ"            | sed -n 1p | sed 's|[",:]||g' | sed 's/^ *//g' | sed 's/ /: /')"
+        Slug="$(cat $outputfile | grep "Slug"           | sed -n 1p | sed 's|[",:]||g' | sed 's/^ *//g' | sed 's/ /: /')"
+Zentrumsname="$(cat $outputfile | grep "Zentrumsname"   | sed -n 1p | sed 's|[",:]||g' | sed 's/^ *//g' | sed 's/ /: /')"
+
+echo $Adress
+echo $BookingURL
+echo $Ort
+echo $PLZ
+echo $Slug
+echo $Zentrumsname
+
+rm -f $outputfile
