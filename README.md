@@ -28,5 +28,5 @@ Holen der aktuellen freien Impftermine. Ist ein Termin frei wird automatisch ein
 3. Das Script starten zum Testen und gegebenenfalls einen `cronjob` hinzufügen
 
 
-# Credits
+## Credits
 Grundgerüst kommt von [Moritz Hassert](https://www.xing.com/profile/Moritz_Hassert)
