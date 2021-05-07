@@ -7,11 +7,13 @@ try:
     import smtplib
 except:
     print("Bitte das Modul smtplib installieren mit \"pip3 install smtplib\"")
+    sys.exit(1)
 
 try:
     import config
 except:
     print("Bitte das Modul config installieren mit \"pip3 install config\"")
+    sys.exit(1)
 
 
 
