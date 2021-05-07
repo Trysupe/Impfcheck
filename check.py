@@ -2,6 +2,7 @@
 
 import requests
 import json
+import os
 import sys
 from pprint import pprint
 try:
@@ -25,7 +26,7 @@ def checkAvailability():
     }
 
 
-    with open("Impfzentren.json") as f:
+    with open(os.path.dirname(os.path.realpath(__file__)) + "/Impfzentren.json") as f:
         data = json.load(f)
 
     r = requests.patch(url, json=data, headers=head)
