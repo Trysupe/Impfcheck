@@ -22,7 +22,7 @@ def checkAvailability():
     }
 
 
-    with open("patch.json") as f:
+    with open("Impfzentren.json") as f:
         data = json.load(f)
 
     r = requests.patch(url, json=data, headers=head)
