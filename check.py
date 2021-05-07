@@ -54,9 +54,9 @@ def sendmail(available):
         server.sendmail(sent_from, to, email_text)
         server.close()
 
-        print("Email sent!")
+        print("E-Mail wurde verschickt")
     except Exception as e:
-        print("Something went wrong: " + str(e))
+        print("Etwas ist schiefgelaufen: " + str(e))
 
 
 available = checkAvailability()
