@@ -79,10 +79,10 @@ available = checkAvailability()
 
 if available != []:
     slugs = [available["Slug"] for available in available]
-    counter=0
-    for slug in slugs:
-        slugs[counter] = slug.split("_", 1)[0] + "_" + slug.split("_", 2)[1]
-        counter+=1
+    # counter=0
+    # for slug in slugs:
+    #     slugs[counter] = slug.split("_", 1)[0] + "_" + slug.split("_", 2)[1]
+    #     counter+=1
     slugs = list(dict.fromkeys(slugs)) #Remove duplicates
     information = ""
     for slug in slugs:
