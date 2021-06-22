@@ -40,8 +40,8 @@ def checkAvailability():
 
     available = [x for x in result if x["Available"] ]
 
-    print("Vefügbar:")
-    pprint(available)
+#    print("Vefügbar:")
+#    pprint(available)
     return available
 
 
@@ -61,6 +61,7 @@ def sendmail(available, information):
     body = str(information) + "\n\n" + str(available)
 
     email_text = "From: " + str(sent_from) + "\nTo: " + str(to) + "\nSubject: " + str(subject) + "\n" +  str(body)
+    email_text = email_text.encode('utf-8')
     print(email_text)
 
     try:
