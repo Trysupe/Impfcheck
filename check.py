@@ -58,9 +58,8 @@ def sendmail(available, information):
     sent_from = gmail_user
     to = gmail_user
     subject = "Impftermin"
-    body = str(information) + "\n\n" + str(available)
 
-    email_text = "From: " + str(sent_from) + "\nTo: " + str(to) + "\nSubject: " + str(subject) + "\n" +  str(body)
+    email_text = "From: " + str(sent_from) + "\nTo: " + str(to) + "\nSubject: " + str(subject) + "\n" +  str(information)
     email_text = email_text.encode('utf-8')
     print(email_text)
 
